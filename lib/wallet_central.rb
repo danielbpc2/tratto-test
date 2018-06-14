@@ -6,8 +6,19 @@ class WalletCentral
     Wallet.load
   end
 
-  def transfer(wallet1, wallet2, currency, amount_transfered)
+  def conversion(currency, amount)
 
+  end
+
+  def transfer(wallet1, wallet2, currency, amount_transfered)
+    transferee_wallets = WALLETS.select { |x| wallet1 == x.client}
+    receiver_wallets = WALLETS.select { |x| wallet2 == x.client}
+
+    transferee_wallets.keep_if { |x| currency == x.currency}
+    transferee_wallets = transferee_wallets[0]
+
+    if
+    end
   end
 
   def output(client)
@@ -69,6 +80,9 @@ private
   end
 
 end
-
-a = WalletCentral.new
-puts a.output('jon')
+# c = WalletCentral.new
+# a = WALLETS.select { |x| 'jon' == x.client }
+# # puts a
+# a.keep_if { |x| 'USD' == x.currency}
+# a = a[0]
+# puts a.client
