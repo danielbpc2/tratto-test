@@ -1,10 +1,16 @@
 require_relative 'wallet'
-require 'pry'
 
 class WalletCentral
 
   def initialize
     Wallet.load
+  end
+
+  def show_all_names
+    names = []
+    WALLETS.each {|wallet| names << wallet.client}
+    names.uniq!
+    names.each {|client| puts client}
   end
 
   def transfer(wallet1, wallet2, currency, amount_transfered)
