@@ -7,10 +7,6 @@ class WalletCentral
     Wallet.load
   end
 
-  def conversion(currency, amount)
-
-  end
-
   def transfer(wallet1, wallet2, currency, amount_transfered)
     transferee_wallets = WALLETS.select { |x| wallet1 == x.client}
     receiver_wallets = WALLETS.select { |x| wallet2 == x.client}
@@ -57,7 +53,7 @@ class WalletCentral
         receiver_wallet[0].amount = (receiver_wallet[0].amount.to_f + amount_transfered.to_f).round(2)
 
         else
-          puts "Insufficient funds to make this transfer"
+          return puts "Insufficient funds to make this transfer"
       end
 
       # transferee doesn't have a wallet in this currency
@@ -75,7 +71,7 @@ class WalletCentral
         receiver_wallet[0].amount = (receiver_wallet[0].amount.to_f + amount_transfered.to_f).round(2)
 
         else
-          puts "Insufficient funds to make this transfer"
+          return puts "Insufficient funds to make this transfer"
       end
 
       # receiver doesn't have a wallet in this currecy
@@ -93,7 +89,7 @@ class WalletCentral
         receiver_wallet[0].amount = (receiver_wallet[0].amount.to_f + amount_transfered_converted.to_f).round(2)
 
         else
-          puts "Insufficient funds to make this transfer"
+          return puts "Insufficient funds to make this transfer"
       end
 
       # both doesn't have the transfer currency
@@ -114,10 +110,10 @@ class WalletCentral
         transferee_wallet[0].amount = (transferee_wallet[0].amount.to_f - amount_transfered_converted.to_f).round(2)
         receiver_wallet[0].amount = (receiver_wallet[0].amount.to_f + amount_transfered2_converted.to_f).round(2)
         else
-          puts "Insufficient funds to make this transfer"
+          return puts "Insufficient funds to make this transfer"
       end
     end
-
+      Wallet.save
   end
 
   def output(client)
@@ -201,7 +197,7 @@ private
   end
 
 end
-# c = WalletCentral.new
+c = WalletCentral.new
 # a = WALLETS.select { |x| 'jon' == x.client }
 # b = WALLETS.select { |x| 'aray' == x.client }
 # # # puts a
@@ -214,7 +210,7 @@ end
 # # # puts a.client
 
 # # puts "------------"
-# # c.transfer('jon','littlefinger','BRL', "211")
+c.transfer('jon','aray','USD', "1")
 # # puts "------------"
 # # puts c.output("jon")
 # # puts "------------"
