@@ -7,7 +7,7 @@ turned_on = true
 
 while turned_on == true
   puts "-----------------"
-  puts "welcome to the Tratto test bank! what do you want to do?"
+  puts "Welcome to the Tratto test bank! what do you want to do?"
   puts "1- Check some account?"
   puts "2- Check the name of the users?"
   puts "3- Transfer money between accounts?"
@@ -16,26 +16,34 @@ while turned_on == true
 
   case user_input
   when "1"
-  puts `clear`
+    puts `clear`
     puts "What is the client name?"
     answer = gets.chomp.downcase
-  puts `clear`
-  puts "Your result:"
+    puts `clear`
+    puts "Your result:"
     puts wallet_central.output(answer)
   when "2"
-  puts `clear`
+    puts `clear`
     wallet_central.show_all_names
   when "3"
-  puts `clear`
+    puts `clear`
     puts "Who will transfer? (first name)"
     transferee = gets.chomp.downcase
     puts "Who will receive? (first name)"
     receiver = gets.chomp.downcase
     puts "the currency that will be transfered? (USD, BRL or EUR)"
-    currency = gets.chomp.downcase
+    currency = gets.chomp.upcase
+    while currency.match(/^(brl|usd|eur)$/i).nil?
+      puts "not a valid currency"
+      currency = gets.chomp.upcase
+    end
     puts "The amount to be transfered?"
-    amount = gets.chomp.downcase
-
+    amount = gets.chomp
+    while amount.match(/^(\d+).?(\d{2})?$/).nil?
+    puts "insert a number."
+    amount = gets.chomp
+    end
+    wallet_central.transfer(transferee, receiver, currency, amount)
   when "4"
     turned_on = false
   else

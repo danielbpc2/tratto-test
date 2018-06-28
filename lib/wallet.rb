@@ -2,7 +2,7 @@ require 'csv'
 require 'json'
 
   # all wallets array
-  WALLETS = []
+WALLETS = []
 
 class Wallet
   attr_reader :client, :currency, :amount

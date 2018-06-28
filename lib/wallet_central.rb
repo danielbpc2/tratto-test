@@ -16,7 +16,7 @@ class WalletCentral
   def transfer(wallet1, wallet2, currency, amount_transfered)
     transferee_wallets = WALLETS.select { |x| wallet1 == x.client}
     receiver_wallets = WALLETS.select { |x| wallet2 == x.client}
-    # TODO
+
     if transferee_wallets.length == 0 || receiver_wallets.length == 0
       return puts "No clients with such name"
     else
@@ -49,9 +49,9 @@ class WalletCentral
       receiver_wallet = [receiver_wallet[0]]
     end
 
-    # 3 Make transfer
+    # 3 Make the transfer
 
-    # same currency on both wallets and same as transfer
+    # same currency on both wallets and same as transfer possibility
     if transferee_wallet[0].currency == currency && receiver_wallet[0].currency == currency
 
       if transferee_wallet[0].amount.to_f >= amount_transfered.to_f
@@ -62,7 +62,7 @@ class WalletCentral
           return puts "Insufficient funds to make this transfer"
       end
 
-      # transferee doesn't have a wallet in this currency
+      # transferee doesn't have a wallet in this currency possibility
     elsif transferee_wallet[0].currency != currency && receiver_wallet[0].currency == currency
       # make it usd
       transferee_amount_converted = convert_anything_to_usd(transferee_wallet[0].currency, transferee_wallet[0].amount)
@@ -80,7 +80,7 @@ class WalletCentral
           return puts "Insufficient funds to make this transfer"
       end
 
-      # receiver doesn't have a wallet in this currecy
+      # receiver doesn't have a wallet in this currecy possibility
     elsif transferee_wallet[0].currency == currency && receiver_wallet[0].currency != currency
       # make it usd
       transferee_amount_converted = convert_anything_to_usd(transferee_wallet[0].currency, transferee_wallet[0].amount)
@@ -98,7 +98,7 @@ class WalletCentral
           return puts "Insufficient funds to make this transfer"
       end
 
-      # both doesn't have the transfer currency
+      # both doesn't have the transfer currency possibility
       elsif transferee_wallet[0].currency != currency && receiver_wallet[0].currency != currency
       # make it usd
       transferee_amount_converted = convert_anything_to_usd(transferee_wallet[0].currency, transferee_wallet[0].amount)
@@ -201,47 +201,4 @@ private
       return (amount.to_f)
     end
   end
-
 end
-c = WalletCentral.new
-# a = WALLETS.select { |x| 'jon' == x.client }
-# b = WALLETS.select { |x| 'aray' == x.client }
-# # # puts a
-# # a.keep_if { |x| 'USD' == x.currency}
-# # puts "------------"
-# # puts c.output("jon")
-# # puts "------------"
-# # puts c.output("littlefinger")
-# # puts "------------"
-# # # puts a.client
-
-# # puts "------------"
-c.transfer('jon','aray','USD', "1")
-# # puts "------------"
-# # puts c.output("jon")
-# # puts "------------"
-# # puts c.output("littlefinger")
-# puts "------------"
-# puts "OTHERWAY"
-# puts c.output("tyrion")
-# puts "------------"
-# puts c.output("daario")
-# puts "------------"
-# puts a.client
-
-# puts "------------"
-# c.transfer('tyrion','daario','BRL', "3.16")
-# puts "------------"
-# puts c.output("tyrion")
-# puts "------------"
-# puts c.output("daario")
-# puts "------------"
-# # puts a.amount
-# # a.amount = a.amount.to_i
-# # a.amount += 100
-# # puts a.amount
-# # WALLETS.sort { |x,y| y.amount.to_f <=> x.amount.to_f }
-# # receiver_wallet = WALLETS.sort { |x,y| y.amount.to_f <=> x.amount.to_f }
-# # puts receiver_wallet
-# # puts c.convert_usd_to("BRL", 150)
-# # puts c.convert_anything_to_usd("BRL", 474)
