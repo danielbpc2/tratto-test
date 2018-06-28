@@ -85,6 +85,27 @@ class WalletCentral
         else
           puts "Insufficient funds to make this transfer"
       end
+
+      elsif transferee_wallet[0].currency != currency && receiver_wallet[0].currency != currency
+      # make it usd
+      transferee_amount_converted = convert_anything_to_usd(transferee_wallet[0].currency, transferee_wallet[0].amount)
+      # make it the transfer currency
+      transferee_amount_converted = convert_usd_to(currency, transferee_amount_converted)
+      # same with the amount to transfer
+      amount_transfered_converted = convert_anything_to_usd(currency, amount_transfered)
+      amount_transfered_converted = convert_usd_to(transferee_wallet[0].currency, amount_transfered_converted)
+
+      amount_transfered2_converted = convert_anything_to_usd(currency, amount_transfered)
+      amount_transfered2_converted = convert_usd_to(receiver_wallet[0].currency, amount_transfered_converted)
+      if transferee_amount_converted >= amount_transfered.to_f
+
+        transferee_wallet[0].amount = (transferee_wallet[0].amount.to_f - amount_transfered_converted.to_f).round(2)
+        receiver_wallet[0].amount = (receiver_wallet[0].amount.to_f + amount_transfered2_converted.to_f).round(2)
+
+
+        else
+          puts "Insufficient funds to make this transfer"
+      end
       # different currency wallets currencies
       # transferee_wallet.amount = (transferee_wallet.amount.to_f) -= amount_transfered.to_f
       # receiver_wallet.amount = receiver_wallet.amount.to_f += convert_usd_to(receiver_wallet.currency, amount_transfered)
@@ -195,18 +216,18 @@ b = WALLETS.select { |x| 'aray' == x.client }
 # puts c.output("littlefinger")
 puts "------------"
 puts "OTHERWAY"
-puts c.output("littlefinger")
+puts c.output("tyrion")
 puts "------------"
-puts c.output("eddard")
+puts c.output("daario")
 puts "------------"
 # puts a.client
 
 puts "------------"
-c.transfer('eddard','littlefinger','EUR', "0.80")
+c.transfer('tyrion','daario','BRL', "3.16")
 puts "------------"
-puts c.output("littlefinger")
+puts c.output("tyrion")
 puts "------------"
-puts c.output("eddard")
+puts c.output("daario")
 puts "------------"
 # puts a.amount
 # a.amount = a.amount.to_i
