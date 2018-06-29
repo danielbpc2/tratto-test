@@ -19,7 +19,6 @@ class WalletCentral
 
     if transferee_wallets.length == 0 || receiver_wallets.length == 0
       return puts "No clients with such name"
-    else
     end
     # 1 check if both have the wallet currency, if they do, make transfer
     transferee_wallet = transferee_wallets.select { |x| currency == x.currency}
@@ -33,7 +32,7 @@ class WalletCentral
       answer = gets.chomp
       while answer.to_i > transferee_wallets.length || answer.to_i <= 0
         puts "invalid input"
-      answer = gets.chomp
+        answer = gets.chomp
       end
       transferee_wallet = [transferee_wallets[answer.to_i - 1]]
     end

@@ -1,10 +1,15 @@
 require_relative 'wallet_central'
 
+# starts the wallet central and load wallets
 wallet_central = WalletCentral.new
 
+# on toggle of the app
 turned_on = true
+
+# clears console
   puts `clear`
 
+# base ĺoop
 while turned_on == true
   puts "-----------------"
   puts "Welcome to the Tratto test bank! what do you want to do?"
@@ -40,8 +45,8 @@ while turned_on == true
     puts "The amount to be transfered?"
     amount = gets.chomp
     while amount.match(/^(\d+).?(\d{2})?$/).nil?
-    puts "insert a number."
-    amount = gets.chomp
+      puts "insert a number."
+      amount = gets.chomp
     end
     wallet_central.transfer(transferee, receiver, currency, amount)
   when "4"
